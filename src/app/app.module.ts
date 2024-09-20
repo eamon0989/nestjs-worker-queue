@@ -14,6 +14,10 @@ import { join } from 'path';
         },
       }),
     }),
+    BullModule.registerQueue({
+      name: 'audio',
+      processors: [],
+    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
