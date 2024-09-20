@@ -24,6 +24,7 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/serve-static": "^4.0.2",
     "bullmq": "^5.13.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
