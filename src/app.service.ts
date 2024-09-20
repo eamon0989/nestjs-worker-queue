@@ -11,4 +11,8 @@ export class AppService {
     console.log('Adding job to queue', process.pid);
     return this.audioQueue.add('audio', { file: 'audio.mp3' });
   }
+
+  getJob(id: string) {
+    return this.audioQueue.getJob(id);
+  }
 }
