@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { BullModule } from '@nestjs/bullmq';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { AudioConsumer } from './app.processor';
 
 @Module({
   imports: [
@@ -15,15 +14,11 @@ import { AudioConsumer } from './app.processor';
         },
       }),
     }),
-    BullModule.registerQueue({
-      name: 'audio',
-      processors: [join(__dirname, 'app.processor.js')],
-    }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, AudioConsumer],
+  providers: [AppService],
 })
 export class AppModule {}
