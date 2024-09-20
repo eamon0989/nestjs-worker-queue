@@ -7,6 +7,12 @@ function sleep(ms) {
 
 @Processor('audio')
 export class AudioConsumer extends WorkerHost {
+  constructor() {
+    super();
+    // Log when the worker is initialized
+    console.log('AudioConsumer worker initialized');
+  }
+
   async process(job: Job<any, any, string>): Promise<any> {
     // eslint-disable-next-line no-console
     console.log('worker', process.pid, 'processing job', job?.id, job?.data);
