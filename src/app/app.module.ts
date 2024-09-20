@@ -19,7 +19,7 @@ import { join } from 'path';
       processors: [],
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
+      rootPath: join(__dirname, '../..', 'client'),
     }),
   ],
   controllers: [AppController],

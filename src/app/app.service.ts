@@ -1,5 +1,5 @@
 import { InjectQueue } from '@nestjs/bullmq';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { randomUUID } from 'crypto';
 
@@ -20,7 +20,16 @@ export class AppService {
     }
   }
 
-  getJob(id: string) {
-    return this.audioQueue.getJob(id);
+  async getJob(id: string) {
+    const job = await this.audioQueue.getJob(id);
+
+    if (!job) {
+      throw new NotFoundException(`Job with id ${id} not found`);
+    }
+
+    const state = await job.getState();
+    const progress = job.progress;
+    const reason = job.failedReason;
+    return { id, state, progress, reason };
   }
 }
