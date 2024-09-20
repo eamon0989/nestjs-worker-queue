@@ -17,9 +17,7 @@ import { AudioConsumer } from './app.processor';
     }),
     BullModule.registerQueue({
       name: 'audio',
-      connection: {
-        url: process.env.REDIS_URL || 'redis://localhost:6379',
-      },
+      processors: [join(__dirname, 'app.processor.js')],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'client'),
