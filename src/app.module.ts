@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { BullModule } from '@nestjs/bullmq';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AudioConsumer } from './app.processor';
 
 @Module({
   imports: [
@@ -25,6 +26,6 @@ import { join } from 'path';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AudioConsumer],
 })
 export class AppModule {}
