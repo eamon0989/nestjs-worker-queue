@@ -9,6 +9,9 @@ import { BullModule } from '@nestjs/bullmq';
   imports: [
     BullModule.registerQueue({
       name: 'audio',
+      connection: {
+        url: process.env.REDIS_URL || 'redis://localhost:6379',
+      },
       processors: [join(__dirname, 'worker.processor.js')],
     }),
   ],
