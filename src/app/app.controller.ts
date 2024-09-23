@@ -8,12 +8,11 @@ export class AppController {
 
   @Post()
   postJob() {
-    this.appService.addToQueue();
+    return this.appService.addToQueue();
   }
 
   @Get(':id')
   getJob(@Param('id') id: string) {
-    this.logger.log(`Getting job ${id}`);
     return this.appService.getJob(id);
   }
 }
