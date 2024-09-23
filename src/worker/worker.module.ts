@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppService } from '../app/app.service';
 
 import { AudioConsumer } from './worker.processor';
 import { BullModule } from '@nestjs/bullmq';
@@ -13,6 +12,6 @@ import { BullModule } from '@nestjs/bullmq';
       },
     }),
   ],
-  providers: [AppService, AudioConsumer],
+  providers: [AudioConsumer],
 })
 export class WorkerModule {}
