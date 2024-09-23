@@ -1,4 +1,5 @@
 import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
+import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 
 function sleep(ms) {
@@ -7,15 +8,12 @@ function sleep(ms) {
 
 @Processor('audio')
 export class AudioConsumer extends WorkerHost {
-  constructor() {
-    super();
-    // Log when the worker is initialized
-    console.log('AudioConsumer worker initialized');
-  }
+  logger = new Logger('AudioConsumer');
 
   async process(job: Job<any, any, string>): Promise<any> {
-    // eslint-disable-next-line no-console
-    console.log('worker', process.pid, 'processing job', job?.id, job?.data);
+    this.logger.log(
+      `Processing job ${job.id} of type ${job.name} in PID ${process.pid}.`,
+    );
 
     // This is an example job that just slowly reports on progress
     // while doing no work. Replace this with your own job logic.
@@ -32,8 +30,9 @@ export class AudioConsumer extends WorkerHost {
       job.updateProgress(progress);
     }
 
-    // eslint-disable-next-line no-console
-    console.log('worker', process.pid, 'finished job', job.id);
+    this.logger.log(
+      `Job ${job.id} of type ${job.name} completed on PID ${process.pid}.`,
+    );
     // A job can return values that will be stored in Redis as JSON
     // This return value is unused in this demo application.
     return { value: 'This will be stored' };
@@ -42,7 +41,7 @@ export class AudioConsumer extends WorkerHost {
   @OnWorkerEvent('failed')
   onFailed(job: Job, error: Error) {
     console.log(
-      `Job ${job.id} of type ${job.name} with data ${job.data} failed with error ${error.message}`,
+      `Job ${job.id} of type ${job.name} failed with error ${error.message}`,
     );
   }
 
@@ -53,15 +52,11 @@ export class AudioConsumer extends WorkerHost {
 
   @OnWorkerEvent('active')
   onActive(job: Job) {
-    console.log(
-      `Processing job ${job.id} of type ${job.name} with data ${job.data}...`,
-    );
+    console.log(`Processing job ${job.id} of type ${job.name}...`);
   }
 
   @OnWorkerEvent('completed')
   onCompleted(job: Job) {
-    console.log(
-      `Job ${job.id} of type ${job.name} with data ${job.data} completed.`,
-    );
+    console.log(`Job ${job.id} of type ${job.name} completed.`);
   }
 }

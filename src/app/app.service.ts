@@ -1,15 +1,16 @@
 import { InjectQueue } from '@nestjs/bullmq';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Queue } from 'bullmq';
 import { randomUUID } from 'crypto';
 
 @Injectable()
 export class AppService {
+  logger = new Logger('AppService');
   constructor(@InjectQueue('audio') private audioQueue: Queue) {}
 
   async addToQueue() {
-    // eslint-disable-next-line no-console
-    console.log('Adding job to queue', process.pid);
+    this.logger.log(`Adding a new job to the queue on PID ${process.pid}`);
+
     try {
       return await this.audioQueue.add('audio', {
         file: 'audio.mp3',

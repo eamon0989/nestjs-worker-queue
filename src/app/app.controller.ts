@@ -1,8 +1,9 @@
-import { Controller, Get, Param, Post } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller('job')
 export class AppController {
+  logger = new Logger('AppController');
   constructor(private readonly appService: AppService) {}
 
   @Post()
@@ -12,8 +13,7 @@ export class AppController {
 
   @Get(':id')
   getJob(@Param('id') id: string) {
-    // eslint-disable-next-line no-console
-    console.log('Getting job', id);
+    this.logger.log(`Getting job ${id}`);
     return this.appService.getJob(id);
   }
 }

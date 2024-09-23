@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { WorkerModule } from './worker/worker.module';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
+  const logger = new Logger('bootstrap');
   const app = await NestFactory.create(WorkerModule);
-  await app.listen(process.env.PORT || 3001);
-  // eslint-disable-next-line no-console
-  console.log('Application is running on: http://localhost:3001');
-  // eslint-disable-next-line no-console
-  console.log(process.env.REDIS_URL);
+  const port = process.env.PORT || 3001;
+  await app.listen(port);
+  logger.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap();
