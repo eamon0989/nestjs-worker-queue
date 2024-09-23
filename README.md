@@ -26,6 +26,10 @@ $ npm run start:worker
 
 Send an empty post request to http://localhost:3000/job (e.g. `curl -X POST http://localhost:3000/job`) and you will see the process id logged to the console, once from the main app which adds the job to the queue, and then from the queue with a different PID.
 
+You can also add jobs to the queue using the basic UI (in this case provided by Heroku) available at http://localhost:3000.
+
+![screenshot of ui](image.png)
+
 ## Heroku
 
 This app can be deployed to heroku, where a main `web` process will start and also a `worker` process for the queue.
