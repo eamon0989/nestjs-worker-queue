@@ -1,6 +1,6 @@
 ## Description
 
-A simple showcase of splitting a bullmq queue out to a separate process.
+A simple showcase of how to split a bullmq queue out to a separate process in NestJs.
 
 ## Project setup
 
@@ -24,8 +24,7 @@ $ npm run start:dev
 $ npm run start:worker
 ```
 
-Send a post request to http://localhost:3000/job and you will see the process id logged to the console, 
-once from the main app which adds the job to the queue, and then from the queue with a different PID.
+Send an empty post request to http://localhost:3000/job (e.g. `curl -X POST http://localhost:3000/job`) and you will see the process id logged to the console, once from the main app which adds the job to the queue, and then from the queue with a different PID.
 
 ## Heroku
 
